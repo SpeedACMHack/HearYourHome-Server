@@ -27,18 +27,18 @@ class S(BaseHTTPRequestHandler):
         # Doesn't do anything with posted data
         self._set_headers()
         action = postvars["action"]
-        if action == "newdevice":
-        
-        elif action == "notify":
-            device = postvars["device-name"]
-            time = postvars["timestamp"]
+        device = postvars["device-name"]
+        time = postvars["timestamp"]
+        if action[0] == "newdevice":
+            vals = 'action=' + action[0] + 'device=' + device[0] + 'time=' + time[0]
+        elif action[0] == "notify":
             self.wfile.write('<html><body><h1>canconfirm</h1></body></html>')
-        vals = 'device=' + device[0] + ';time=' + time[0]
+            vals = 'device=' + device[0] + ';time=' + time[0]
+            with open("new.out", "w") as output:
+                output.write(vals)      
         with open("out.log", "a") as myfile:
             myfile.write(vals)
-        with open("new.out", "w") as output:
-            output.write(vals)      
-        
+            
 def run(server_class=HTTPServer, handler_class=S, port=80):
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
