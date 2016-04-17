@@ -26,9 +26,13 @@ class S(BaseHTTPRequestHandler):
             postvars = cgi.parse_qs(self.rfile.read(length), keep_blank_values=1)
         # Doesn't do anything with posted data
         self._set_headers()
-        device = postvars["device-name"]
-        time = postvars["timestamp"]
-        self.wfile.write('<html><body><h1>canconfirm</h1></body></html>')
+        action = postvars["action"]
+        if action == "newdevice":
+        
+        elif action == "notify":
+            device = postvars["device-name"]
+            time = postvars["timestamp"]
+            self.wfile.write('<html><body><h1>canconfirm</h1></body></html>')
         vals = 'device=' + device[0] + ';time=' + time[0]
         with open("out.log", "a") as myfile:
             myfile.write(vals)
