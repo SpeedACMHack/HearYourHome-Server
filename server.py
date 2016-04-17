@@ -30,10 +30,10 @@ class S(BaseHTTPRequestHandler):
         device = postvars["device-name"]
         time = postvars["timestamp"]
         if action[0] == "newdevice":
-            vals = 'action=' + action[0] + 'device=' + device[0] + 'time=' + time[0]
+            vals = 'action=' + action[0] + 'device=' + device[0] + 'time=' + time[0] + '\n'
         elif action[0] == "notify":
             self.wfile.write('<html><body><h1>canconfirm</h1></body></html>')
-            vals = 'device=' + device[0] + ';time=' + time[0]
+            vals = 'device=' + device[0] + ';time=' + time[0] + '\n'
             with open("new.out", "w") as output:
                 output.write(vals)      
         with open("out.log", "a") as myfile:
